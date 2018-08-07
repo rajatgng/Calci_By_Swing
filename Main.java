@@ -18,7 +18,8 @@ class Calculator extends JFrame implements ActionListener {
     JButton[] btn = new JButton[17];
     JTextField text = new JTextField();
     JButton delb = new JButton("X");
-    JTextField result_text = new JTextField();
+    //JTextField result_text = new JTextField();
+    JLabel view = new JLabel();
     Calculator()
     {
       ImageIcon icon=new ImageIcon("CalciImage.png");
@@ -30,13 +31,17 @@ class Calculator extends JFrame implements ActionListener {
       //this.setResizable(false);
       //c.setBackground(Color.BLUE);
       //Adding Text Field
+        Font font2 = new Font("Arial",Font.PLAIN,15);
       c.add(text);
-      text.setBounds(30,15,200,50);
-      c.add(result_text);
-      result_text.setBounds(250,15,130,50);
-      Font font = new Font("Arial",Font.BOLD,30);
+      c.add(view);
+      view.setBounds(30,2,340,20);
+      view.setFont(font2);
+      text.setBounds(30,20,340,50);
+      //c.add(result_text);
+      //result_text.setBounds(250,15,130,50);
+      Font font = new Font("Arial",Font.BOLD,28);
       text.setFont(font);
-      result_text.setFont(font);
+      //result_text.setFont(font);
       //Adding num button
       for(int i=0;i<17;i++)
       {
@@ -129,67 +134,83 @@ class Calculator extends JFrame implements ActionListener {
       if( e.getSource() == btn[0] )
       {
         text.replaceSelection("0");
+        view.setText(view.getText()+"0");
       }
       if( e.getSource() == btn[1] )
       {
         text.replaceSelection("1");
+        view.setText(view.getText()+"1");
       }
       if( e.getSource() == btn[2] )
       {
         text.replaceSelection("2");
+        view.setText(view.getText()+"2");
       }
+
       if( e.getSource() == btn[3] )
       {
         text.replaceSelection("3");
+        view.setText(view.getText()+"3");
       }
       if( e.getSource() == btn[4] )
       {
         text.replaceSelection("4");
+        view.setText(view.getText()+"4");
       }
       if( e.getSource() == btn[5] )
       {
         text.replaceSelection("5");
+        view.setText(view.getText()+"5");
       }
       if( e.getSource() == btn[6] )
       {
         text.replaceSelection("6");
+        view.setText(view.getText()+"6");
       }
       if( e.getSource() == btn[7] )
       {
         text.replaceSelection("7");
+        view.setText(view.getText()+"7");
       }
       if( e.getSource() == btn[8] )
       {
         text.replaceSelection("8");
+        view.setText(view.getText()+"8");
       }
       if( e.getSource() == btn[9] )
       {
         text.replaceSelection("9");
+        view.setText(view.getText()+"9");
       }
       if( e.getSource() == btn[10] )
       {
         text.replaceSelection("+");
+        view.setText(view.getText()+"+");
       }
       if( e.getSource() == btn[11] )
       {
         text.replaceSelection("-");
+        view.setText(view.getText()+"-");
       }
       if( e.getSource() == btn[12] )
       {
         text.replaceSelection("*");
+        view.setText(view.getText()+"*");
       }
       if( e.getSource() == btn[13] )
       {
         text.replaceSelection("/");
+        view.setText(view.getText()+"/");
       }
       if( e.getSource() == btn[14] )
       {
         text.replaceSelection(".");
+        view.setText(view.getText()+".");
       }
       if( e.getSource() == btn[15] )
       {
 
-
+        view.setText(view.getText()+"=");
         // String n1="",n2="";
         //
         // char c='+';
@@ -238,8 +259,8 @@ class Calculator extends JFrame implements ActionListener {
       if( e.getSource() == btn[16] )
       {
         text.setText("");
-
-        result_text.setText("");
+        view.setText("");
+        //result_text.setText("");
       }
       if( e.getSource() == delb )
       {
@@ -247,6 +268,7 @@ class Calculator extends JFrame implements ActionListener {
         String t = text.getText();
         String t2 = t.substring(0,t.length()-1);
         text.setText(t2);
+        view.setText(t2);
 
       }
       if( e.getSource() == text )
@@ -264,12 +286,13 @@ class Calculator extends JFrame implements ActionListener {
       ScriptEngineManager mgr = new ScriptEngineManager();
       ScriptEngine engine = mgr.getEngineByName("JavaScript");
       String result = text.getText();
-      result_text.setText(String.valueOf(engine.eval(result)));
+      //result_text.setText(String.valueOf(engine.eval(result)));
+      text.setText(String.valueOf(engine.eval(result)));
     }
     catch(ScriptException ex)
     {
       //System.out.println("Error");
-      result_text.setText("Invalid");
+      text.setText("Invalid");
     }
 
     }
