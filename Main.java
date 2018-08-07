@@ -17,7 +17,7 @@ class Calculator extends JFrame implements ActionListener {
     Container c;
     JButton[] btn = new JButton[17];
     JTextField text = new JTextField();
-    
+    JButton delb = new JButton("X");
     JTextField result_text = new JTextField();
     Calculator()
     {
@@ -84,10 +84,12 @@ class Calculator extends JFrame implements ActionListener {
       c.add(btn[14]);
       c.add(btn[15]);
       c.add(btn[16]);
-
+      c.add(delb);
+      delb.setFont(font);
         //This is a test of github account
         //Second test
-      btn[16].setBounds(30,80,250,70);
+      delb.setBounds(210,80,70,70);
+      btn[16].setBounds(30,80,160,70);
       btn[13].setBounds(300,80,70,70);
 
       btn[7].setBounds(30,160,70,70);
@@ -113,6 +115,8 @@ class Calculator extends JFrame implements ActionListener {
 
       for(int i=0;i<17;i++)
       btn[i].addActionListener(this);
+      delb.addActionListener(this);
+      text.addActionListener(this);
       this.setVisible(true);
       this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
@@ -234,9 +238,23 @@ class Calculator extends JFrame implements ActionListener {
       if( e.getSource() == btn[16] )
       {
         text.setText("");
+
         result_text.setText("");
       }
+      if( e.getSource() == delb )
+      {
+        //text.setText("");
+        String t = text.getText();
+        String t2 = t.substring(0,t.length()-1);
+        text.setText(t2);
 
+      }
+      if( e.getSource() == text )
+      {
+        //text.setText("");
+
+      calValue();
+      }
 
 
 
@@ -250,7 +268,8 @@ class Calculator extends JFrame implements ActionListener {
     }
     catch(ScriptException ex)
     {
-      System.out.println("Error");
+      //System.out.println("Error");
+      result_text.setText("Invalid");
     }
 
     }
