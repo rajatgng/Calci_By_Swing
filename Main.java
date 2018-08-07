@@ -2,20 +2,24 @@ import java.util.Scanner;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import javax.script.ScriptEngineManager;
+import javax.script.ScriptEngine;
+import javax.script.ScriptException;
 class Main
 {
-  public static void main(String[] args) {
+  public static void main(String[] args)  {
     Calculator calci = new Calculator();
 
   }
 }
-class Calculator extends JFrame implements ActionListener
-{
+class Calculator extends JFrame implements ActionListener {
+
     Container c;
     JButton[] btn = new JButton[17];
     JTextField text = new JTextField();
-    Double res=0.0;
+    
     JTextField result_text = new JTextField();
+    Calculator()
     {
       ImageIcon icon=new ImageIcon("CalciImage.png");
 		  this.setIconImage(icon.getImage());
@@ -112,8 +116,12 @@ class Calculator extends JFrame implements ActionListener
       this.setVisible(true);
       this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
-    public void actionPerformed(ActionEvent e)
+
+
+    public void actionPerformed(ActionEvent e )
     {
+
+
       if( e.getSource() == btn[0] )
       {
         text.replaceSelection("0");
@@ -176,49 +184,50 @@ class Calculator extends JFrame implements ActionListener
       }
       if( e.getSource() == btn[15] )
       {
-        result_text.setText(Double.toString(res));
-        String result = text.getText();
-        String n1="",n2="";
 
-        char c='+';
-          boolean flag=true;
-        for(int i=0;i<result.length();i++)
-        {
 
-          if((Character.isDigit(result.charAt(i)) || result.charAt(i)=='.') && flag)
-          {
-            n1=n1+result.charAt(i);
-          }
-          else if((Character.isDigit(result.charAt(i)) || result.charAt(i)=='.') && !flag)
-          {
-            n2=n2+result.charAt(i);
-          }
-          else
-          {
-            c = result.charAt(i);
-            flag=false;
-          }
+        // String n1="",n2="";
+        //
+        // char c='+';
+        //   boolean flag=true;
+        // for(int i=0;i<result.length();i++)
+        // {
+        //
+        //   if((Character.isDigit(result.charAt(i)) || result.charAt(i)=='.') && flag)
+        //   {
+        //     n1=n1+result.charAt(i);
+        //   }
+        //   else if((Character.isDigit(result.charAt(i)) || result.charAt(i)=='.') && !flag)
+        //   {
+        //     n2=n2+result.charAt(i);
+        //   }
+        //   else
+        //   {
+        //     c = result.charAt(i);
+        //     flag=false;
+        //   }
+        //
+        // }
+        //
+        // if(c == '+')
+        // {
+        //   res = Double.parseDouble(n1)+Double.parseDouble(n2);
+        // }
+        // else if(c == '-')
+        // {
+        //   res = Double.parseDouble(n1)- Double.parseDouble(n2);
+        // }
+        // else if(c == '*')
+        // {
+        //   res = Double.parseDouble(n1) *  Double.parseDouble(n2);
+        // }
+        // else if(c == '/')
+        // {
+        //   res = Double.parseDouble(n1) / Double.parseDouble(n2);
+        // }
+        //
 
-        }
-
-        if(c == '+')
-        {
-          res = Double.parseDouble(n1)+Double.parseDouble(n2);
-        }
-        else if(c == '-')
-        {
-          res = Double.parseDouble(n1)- Double.parseDouble(n2);
-        }
-        else if(c == '*')
-        {
-          res = Double.parseDouble(n1) *  Double.parseDouble(n2);
-        }
-        else if(c == '/')
-        {
-          res = Double.parseDouble(n1) / Double.parseDouble(n2);
-        }
-
-        result_text.setText(Double.toString(res));
+        calValue();
 
 
       }
@@ -229,6 +238,20 @@ class Calculator extends JFrame implements ActionListener
       }
 
 
+
+
+    }
+    public void calValue() {
+      try{
+      ScriptEngineManager mgr = new ScriptEngineManager();
+      ScriptEngine engine = mgr.getEngineByName("JavaScript");
+      String result = text.getText();
+      result_text.setText(String.valueOf(engine.eval(result)));
+    }
+    catch(ScriptException ex)
+    {
+      System.out.println("Error");
+    }
 
     }
 
