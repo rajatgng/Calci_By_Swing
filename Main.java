@@ -9,11 +9,12 @@ class Main
 
   }
 }
-class Calculator extends JFrame
+class Calculator extends JFrame implements ActionListener
 {
     Container c;
     JButton[] btn = new JButton[17];
     JTextField text = new JTextField();
+    Double res=0.0;
     JTextField result_text = new JTextField();
     {
       ImageIcon icon=new ImageIcon("CalciImage.png");
@@ -104,9 +105,131 @@ class Calculator extends JFrame
       btn[14].setBounds(120,400,70,70);
       btn[15].setBounds(210,400,160,70);
 
+      //Events
 
+      for(int i=0;i<17;i++)
+      btn[i].addActionListener(this);
       this.setVisible(true);
       this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+    public void actionPerformed(ActionEvent e)
+    {
+      if( e.getSource() == btn[0] )
+      {
+        text.replaceSelection("0");
+      }
+      if( e.getSource() == btn[1] )
+      {
+        text.replaceSelection("1");
+      }
+      if( e.getSource() == btn[2] )
+      {
+        text.replaceSelection("2");
+      }
+      if( e.getSource() == btn[3] )
+      {
+        text.replaceSelection("3");
+      }
+      if( e.getSource() == btn[4] )
+      {
+        text.replaceSelection("4");
+      }
+      if( e.getSource() == btn[5] )
+      {
+        text.replaceSelection("5");
+      }
+      if( e.getSource() == btn[6] )
+      {
+        text.replaceSelection("6");
+      }
+      if( e.getSource() == btn[7] )
+      {
+        text.replaceSelection("7");
+      }
+      if( e.getSource() == btn[8] )
+      {
+        text.replaceSelection("8");
+      }
+      if( e.getSource() == btn[9] )
+      {
+        text.replaceSelection("9");
+      }
+      if( e.getSource() == btn[10] )
+      {
+        text.replaceSelection("+");
+      }
+      if( e.getSource() == btn[11] )
+      {
+        text.replaceSelection("-");
+      }
+      if( e.getSource() == btn[12] )
+      {
+        text.replaceSelection("*");
+      }
+      if( e.getSource() == btn[13] )
+      {
+        text.replaceSelection("/");
+      }
+      if( e.getSource() == btn[14] )
+      {
+        text.replaceSelection(".");
+      }
+      if( e.getSource() == btn[15] )
+      {
+        result_text.setText(Double.toString(res));
+        String result = text.getText();
+        String n1="",n2="";
+
+        char c='+';
+          boolean flag=true;
+        for(int i=0;i<result.length();i++)
+        {
+
+          if((Character.isDigit(result.charAt(i)) || result.charAt(i)=='.') && flag)
+          {
+            n1=n1+result.charAt(i);
+          }
+          else if((Character.isDigit(result.charAt(i)) || result.charAt(i)=='.') && !flag)
+          {
+            n2=n2+result.charAt(i);
+          }
+          else
+          {
+            c = result.charAt(i);
+            flag=false;
+          }
+
+        }
+
+        if(c == '+')
+        {
+          res = Double.parseDouble(n1)+Double.parseDouble(n2);
+        }
+        else if(c == '-')
+        {
+          res = Double.parseDouble(n1)- Double.parseDouble(n2);
+        }
+        else if(c == '*')
+        {
+          res = Double.parseDouble(n1) *  Double.parseDouble(n2);
+        }
+        else if(c == '/')
+        {
+          res = Double.parseDouble(n1) / Double.parseDouble(n2);
+        }
+
+        result_text.setText(Double.toString(res));
+
+
+      }
+      if( e.getSource() == btn[16] )
+      {
+        text.setText("");
+        result_text.setText("");
+      }
+
+
+
     }
 
 }
